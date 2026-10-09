@@ -1322,6 +1322,14 @@ addEventListener('afterprint',()=>go(i));
 /* portada: indicador para entrar (también funciona tocándolo en celular) */
 document.addEventListener('click',e=>{ if(e.target.closest('.cover-enter')){ e.stopPropagation(); go(1); } },true);
 
+/* View model en celular/tablet: la landing se abre en la misma pestaña (como si se entrara directo),
+   así su pantalla completa funciona igual que siempre. Al volver con "atrás" se regresa al Portfolio. */
+document.addEventListener('click',e=>{ const a=e.target.closest('.cell-vr'); if(!a||!TOUCH) return;
+  e.preventDefault(); e.stopPropagation();
+  try{ history.replaceState(null,'','#portfolio'); }catch(_){}
+  location.href=a.href; },true);
+addEventListener('pageshow',()=>{ if(location.hash==='#portfolio' && typeof GRID_I==='number' && i!==GRID_I) go(GRID_I); });
+
 go(0);
 </script>
 </body>
