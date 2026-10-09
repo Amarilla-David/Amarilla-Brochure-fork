@@ -875,7 +875,7 @@ const PROJ = [
  {k:'beach-house', n:'Beach House',             loc:'Miami Beach, FL',      f:[['Type','Custom home'],['Area','8,051 sq ft'],['Architecture','Praxis'],['Amarilla','Owner\u2019s Representative'],['Status','In Progress']]},
  {k:'diamond', n:'Diamond Residence',       loc:'Bay Harbor Islands, FL',f:[['Type','Custom home'],['Area','\u2014'],['Amarilla','GC + Digital Twin'],['Status','In Progress']]},
  {k:'ne37', n:'3321 NE 37th St.',        loc:'Fort Lauderdale, FL',  f:[['Type','Custom home'],['Area','5,041 sq ft'],['Architecture','Aronson Estates'],['Amarilla','GC + Digital Twin'],['Status','Starting Soon']]},
- {k:'chirino',      n:'Chirino Residence',       loc:'Miami Beach, FL',      f:[['Type','Custom home'],['Area','\u2014'],['Amarilla','GC + Digital Twin'],['Status','In Progress']]},
+ {k:'chirino',      n:'Alton Residence',       loc:'Miami Beach, FL',      f:[['Type','Custom home'],['Area','\u2014'],['Amarilla','GC + Digital Twin'],['Status','In Progress']]},
  {k:'the-vines',    n:'The Vines Residences',    loc:'Valle de Uco, Mendoza, AR', f:[['Type','Wine hotel'],['Area','134,549 sq ft'],['Landscape','EDSA'],['Budget','USD 20,000,000'],['Amarilla','GC + Digital Twin'],['Status','In Progress']]},
  {k:'nain-basera',  n:'Nain Basera',             loc:'Mumbai, India',        f:[['Type','Residential building'],['Area','40,150 sq ft'],['Architecture','SJK Architects'],['Interior design','rs+a'],['Amarilla','PM Consultant'],['Status','In Progress']]},
  {k:'la-isla', n:'La Isla House',           loc:'Nordelta, Tigre, AR',  f:[['Type','Custom home'],['Area','16,292 sq ft'],['Architecture','\u2014 TBC'],['Interior design','\u2014 TBC'],['Amarilla','General Contractor'],['Status','Starting Soon']]},
@@ -1058,7 +1058,7 @@ const SLIDES = [
     <div class="grid">
       ${PROJ.map((p,k)=>`<figure class="cell" style="margin:0;animation-delay:${(0.18+k*0.035).toFixed(2)}s" title="${p.n}">
         <img src="${im(p.k)}" alt="${p.n}">
-        ${MODEL[p.k] ? `<a class="cell-vr" href="${MODEL[p.k]}" target="_blank" rel="noopener" aria-label="View model (opens in a new tab)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg><span>View model</span></a>` : ''}
+        ${MODEL[p.k] ? `<a class="cell-vr" href="${MODEL[p.k]}" target="_blank" rel="noopener" aria-label="View project (opens in a new tab)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg><span>View project</span></a>` : ''}
         <figcaption><b>${p.n}</b><span>${p.loc}</span></figcaption>${PAGE[p.k]?`<a class="cell-link" href="${PAGE[p.k]}" target="_blank" rel="noopener" aria-label="${p.n} — project page"></a>`:''}</figure>`).join('')}
     </div>
   </div>`},
