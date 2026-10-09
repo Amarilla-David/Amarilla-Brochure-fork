@@ -824,6 +824,10 @@ body.on-cover .menu .lg{display:none}
 @media screen and (max-width:700px){
   .slide .vdc-logo, .slide .dti-h, .slide .fld-tech-in h3, .slide .sp-top h3, .slide .hsw-head h3{font-size:21px}
 }
+/* Portfolio: cada foto lleva a la página del proyecto en amarilla.us (el botón View model queda por encima) */
+.cell-link{position:absolute; inset:0; z-index:2}
+.cell-link:focus-visible{outline:2px solid #F2F1EE; outline-offset:-4px}
+.cell .cell-vr{z-index:4}
 </style>
 </head>
 <body>
@@ -923,6 +927,8 @@ const PEOPLE = [
  ['d08','Aida Miron','La Casona Garden','casona','https://www.lacasonagarden.com']
 ];
 
+/* página de cada proyecto en amarilla.us (los que tienen) */
+const PAGE = {'bal-bay':'https://amarilla.us/projects/56balbay','concrete-house':'https://amarilla.us/projects/concrete-house','fairway':'https://amarilla.us/projects/575-fairway-dr','golden-house':'https://amarilla.us/projects/golden-house','beach-house':'https://amarilla.us/projects/beach-house','ne37':'https://amarilla.us/projects/ft-lauderdale-house','nork-house':'https://amarilla.us/projects/nork-house','the-vines':'https://amarilla.us/projects/vines-residences','nain-basera':'https://amarilla.us/projects/nain-basera','harmony':'https://amarilla.us/projects/harmony-tower','corp-america':'https://amarilla.us/projects/corporacion-america-hq','hub':'https://amarilla.us/projects/hub-libertador','guatemala5000':'https://amarilla.us/projects/5000-guatemala'};
 const MODEL = {
   'nork-house': 'https://nork.amarilla.us',
   'nbr5940'   : 'https://5940nbr.amarilla.us/'
@@ -1053,7 +1059,7 @@ const SLIDES = [
       ${PROJ.map((p,k)=>`<figure class="cell" style="margin:0;animation-delay:${(0.18+k*0.035).toFixed(2)}s" title="${p.n}">
         <img src="${im(p.k)}" alt="${p.n}">
         ${MODEL[p.k] ? `<a class="cell-vr" href="${MODEL[p.k]}" target="_blank" rel="noopener" aria-label="View model (opens in a new tab)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg><span>View model</span></a>` : ''}
-        <figcaption><b>${p.n}</b><span>${p.loc}</span></figcaption></figure>`).join('')}
+        <figcaption><b>${p.n}</b><span>${p.loc}</span></figcaption>${PAGE[p.k]?`<a class="cell-link" href="${PAGE[p.k]}" target="_blank" rel="noopener" aria-label="${p.n} — project page"></a>`:''}</figure>`).join('')}
     </div>
   </div>`},
 
