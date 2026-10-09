@@ -1,0 +1,46 @@
+name: Sync deployment fork
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-deployment-fork
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    # Guard: the mirrored copy on the fork must skip (no self-sync / no loops).
+    if: github.repository == 'MariaSibolich-2026/Amarilla-Brochure'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out upstream
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          # Prevent GITHUB_TOKEN from sticking in http.extraheader and overriding the fork PAT.
+          persist-credentials: false
+
+      - name: Publish authorized deployment mirror
+        env:
+          FORK_SYNC_TOKEN: ${{ secrets.FORK_SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${FORK_SYNC_TOKEN:-}" ]; then
+            echo "FORK_SYNC_TOKEN is not set in this repository's Actions secrets."
+            exit 1
+          fi
+          git remote add deployment "https://x-access-token:${FORK_SYNC_TOKEN}@github.com/Amarilla-David/Amarilla-Brochure-fork.git"
+          git fetch deployment main
+          remote_sha="$(git rev-parse deployment/main)"
+          # Empty commit authored as the fork owner — Vercel authorizes this identity.
+          git config user.name "Amarilla-David"
+          git config user.email "262346545+Amarilla-David@users.noreply.github.com"
+          git commit --allow-empty -m "chore: authorize deployment mirror"
+          # Lease against the SHA we just fetched; never blind --force.
+          git push deployment HEAD:main --force-with-lease="main:${remote_sha}"
